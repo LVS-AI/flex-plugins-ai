@@ -6,5 +6,5 @@ public interface ICSAMReportService
 {
     Task<CSAMReportEntry> CreateReportAsync(CSAMReportEntry report);
     Task<CSAMReportEntry> UpdateReportAsync(int reportId, CSAMReportEntry report);
-    Task<List<CSAMReportEntry>> GetReportsForContactAsync(int contactId);
+    Task<List<CSAMReportEntry>> GetReportsForContactAsync(string contactId);
 }

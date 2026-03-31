@@ -16,6 +16,6 @@ public class CSAMReportService : ICSAMReportService
         => await _api.PutAsync<CSAMReportEntry>($"csam-reports/{reportId}", report)
            ?? throw new InvalidOperationException("Failed to update CSAM report.");
 
-    public async Task<List<CSAMReportEntry>> GetReportsForContactAsync(int contactId)
-        => await _api.GetAsync<List<CSAMReportEntry>>($"contacts/{contactId}/csam-reports") ?? [];
+    public async Task<List<CSAMReportEntry>> GetReportsForContactAsync(string contactId)
+        => await _api.GetAsync<List<CSAMReportEntry>>($"contacts/{Uri.EscapeDataString(contactId)}/csam-reports") ?? [];
 }

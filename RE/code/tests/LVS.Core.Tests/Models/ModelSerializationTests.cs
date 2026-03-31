@@ -10,8 +10,8 @@ public class ModelSerializationTests
     {
         var contact = new Contact
         {
-            Id = 42,
-            HelplineCode = "AS",
+            Id = "42",
+            Helpline = "AS",
             Channel = ChannelTypes.Web,
             TimeOfContact = new DateTime(2024, 1, 15, 12, 0, 0, DateTimeKind.Utc)
         };
@@ -20,8 +20,8 @@ public class ModelSerializationTests
         var deserialized = JsonSerializer.Deserialize<Contact>(json);
 
         Assert.NotNull(deserialized);
-        Assert.Equal(42, deserialized!.Id);
-        Assert.Equal("AS", deserialized.HelplineCode);
+        Assert.Equal("42", deserialized!.Id);
+        Assert.Equal("AS", deserialized.Helpline);
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class ModelSerializationTests
         {
             Id = "10",
             Status = "open",
-            HelplineCode = "AS",
+            Helpline = "AS",
             Info = new CaseInfo { Summary = "Test summary" }
         };
 

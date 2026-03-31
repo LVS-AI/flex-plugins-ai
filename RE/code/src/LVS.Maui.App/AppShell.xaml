@@ -3,7 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:LVS.Maui.App.Views"
        x:Class="LVS.Maui.App.AppShell"
-       Title="LVS Care Fukk Chat"
+       Title="LVS Care Full Chat"
        Shell.FlyoutBehavior="Flyout">
 
     <!-- Contact Form (Active Task) -->

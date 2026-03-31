@@ -13,8 +13,9 @@
             <Label Text="{Binding CurrentCase.Id, StringFormat='Case #{0}'}" 
                    Style="{StaticResource Headline}" />
             <HorizontalStackLayout Spacing="8">
-                <Label Text="{Binding CurrentCase.Status}" 
-                       Style="{StaticResource StatusBadge}" />
+                <Border Style="{StaticResource StatusBadge}">
+                    <Label Text="{Binding CurrentCase.Status}" TextColor="White" FontSize="12" />
+                </Border>
                 <Label Text="{Binding CurrentCase.CreatedAt, StringFormat='{0:yyyy-MM-dd}'}" 
                        TextColor="Gray" />
             </HorizontalStackLayout>

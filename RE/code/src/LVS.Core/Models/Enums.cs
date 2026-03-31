@@ -1,5 +1,8 @@
+using System.Text.Json.Serialization;
+
 namespace LVS.Core.Models;
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum FormInputType
 {
     Input,
@@ -21,6 +24,7 @@ public enum FormInputType
     CustomContactComponent
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ListCasesSortBy
 {
     ID,
@@ -30,18 +34,21 @@ public enum ListCasesSortBy
     FOLLOW_UP_DATE
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum SortDirection
 {
     ASC,
     DESC
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum DateExistsCondition
 {
     MUST_EXIST,
     MUST_NOT_EXIST
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ReferralLookupStatus
 {
     NotStarted,
@@ -50,6 +57,7 @@ public enum ReferralLookupStatus
     NotFound
 }
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum ProfilesListSortBy
 {
     ID,

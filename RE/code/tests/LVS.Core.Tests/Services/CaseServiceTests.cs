@@ -34,10 +34,10 @@ public class CaseServiceTests
             Count = 2,
             Cases = [new Case { Id = "1" }, new Case { Id = "2" }]
         };
-        _sut.SearchCasesAsync(Arg.Any<SearchFormValues>(), Arg.Any<int>(), Arg.Any<int>())
+        _sut.SearchCasesAsync(Arg.Any<ListCasesFilters?>(), Arg.Any<ListCasesSort?>(), Arg.Any<int>(), Arg.Any<int>())
             .Returns(searchResult);
 
-        var result = await _sut.SearchCasesAsync(new SearchFormValues(), 0, 20);
+        var result = await _sut.SearchCasesAsync(null, null, 20, 0);
 
         Assert.Equal(2, result.Count);
         Assert.Equal(2, result.Cases.Count);
@@ -56,26 +56,26 @@ public class CaseServiceTests
     }
 
     [Fact]
-    public async Task GetTimelineAsync_ReturnsList()
+    public async Task GetCaseTimelineAsync_ReturnsList()
     {
         var timeline = new List<TimelineActivity>
         {
             new() { Activity = "Case created", Timestamp = DateTime.UtcNow }
         };
-        _sut.GetTimelineAsync("1", Arg.Any<bool>()).Returns(timeline);
+        _sut.GetCaseTimelineAsync("1").Returns(timeline);
 
-        var result = await _sut.GetTimelineAsync("1");
+        var result = await _sut.GetCaseTimelineAsync("1");
 
         Assert.Single(result);
     }
 
     [Fact]
-    public async Task UpdateStatusAsync_ReturnsCase()
+    public async Task UpdateCaseStatusAsync_ReturnsCase()
     {
         var c = new Case { Id = "1", Status = "closed" };
-        _sut.UpdateStatusAsync("1", "closed").Returns(c);
+        _sut.UpdateCaseStatusAsync("1", "closed", "worker123").Returns(c);
 
-        var result = await _sut.UpdateStatusAsync("1", "closed");
+        var result = await _sut.UpdateCaseStatusAsync("1", "closed", "worker123");
 
         Assert.Equal("closed", result!.Status);
     }
