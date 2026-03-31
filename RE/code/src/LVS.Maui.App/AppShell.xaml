@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:LVS.Maui.App.Views"
+       x:Class="LVS.Maui.App.AppShell"
+       Title="LVS Care Fukk Chat"
+       Shell.FlyoutBehavior="Flyout">
+
+    <!-- Contact Form (Active Task) -->
+    <FlyoutItem Title="Contact" Icon="{x:Null}">
+        <ShellContent ContentTemplate="{DataTemplate views:ContactFormPage}" Route="ContactForm" />
+    </FlyoutItem>
+
+    <!-- Case List -->
+    <FlyoutItem Title="Cases" Icon="{x:Null}">
+        <ShellContent ContentTemplate="{DataTemplate views:CaseListPage}" Route="CaseList" />
+    </FlyoutItem>
+
+    <!-- Search -->
+    <FlyoutItem Title="Search" Icon="{x:Null}">
+        <ShellContent ContentTemplate="{DataTemplate views:SearchPage}" Route="Search" />
+    </FlyoutItem>
+
+    <!-- Teams View -->
+    <FlyoutItem Title="Teams" Icon="{x:Null}">
+        <ShellContent ContentTemplate="{DataTemplate views:TeamsViewPage}" Route="Teams" />
+    </FlyoutItem>
+
+    <!-- Profiles -->
+    <FlyoutItem Title="Profiles" Icon="{x:Null}">
+        <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}" Route="Profiles" />
+    </FlyoutItem>
+
+    <!-- Settings -->
+    <FlyoutItem Title="Settings" Icon="{x:Null}">
+        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="Settings" />
+    </FlyoutItem>
+
+    <!-- Detail routes (not in flyout) -->
+    <Shell.FlyoutContent>
+        <!-- Custom flyout header can be added here -->
+    </Shell.FlyoutContent>
+
+</Shell>

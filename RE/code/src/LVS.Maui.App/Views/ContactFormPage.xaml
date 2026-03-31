@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LVS.Maui.App.ViewModels"
+             xmlns:controls="clr-namespace:LVS.Maui.App.Controls"
+             x:Class="LVS.Maui.App.Views.ContactFormPage"
+             x:DataType="vm:ContactFormViewModel"
+             Title="Contact Form">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="16">
+
+        <!-- Call Type Selection -->
+        <VerticalStackLayout Grid.Row="0" Spacing="8" IsVisible="{Binding SelectedCallType, Converter={StaticResource NullToBoolConverter}}">
+            <Label Text="Select Call Type" Style="{StaticResource Headline}" />
+            <HorizontalStackLayout Spacing="8">
+                <Button Text="Child calling about self"
+                        Command="{Binding SelectCallTypeCommand}"
+                        CommandParameter="Child calling about self"
+                        Style="{StaticResource CallTypeButton}" />
+                <Button Text="Someone calling about a child"
+                        Command="{Binding SelectCallTypeCommand}"
+                        CommandParameter="Someone calling about a child"
+                        Style="{StaticResource CallTypeButton}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- Tabbed Form Area -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,*" IsVisible="{Binding IsDataCallType}">
+
+            <!-- Tab Bar -->
+            <HorizontalStackLayout Grid.Row="0" Spacing="4" Padding="0,8">
+                <Button Text="Caller Info" 
+                        Clicked="OnCallerTabClicked"
+                        Style="{StaticResource TabButton}" />
+                <Button Text="Child Info"
+                        Clicked="OnChildTabClicked"
+                        Style="{StaticResource TabButton}" />
+                <Button Text="Case Info"
+                        Clicked="OnCaseInfoTabClicked"
+                        Style="{StaticResource TabButton}" />
+                <Button Text="Categories"
+                        Clicked="OnCategoriesTabClicked"
+                        Style="{StaticResource TabButton}" />
+            </HorizontalStackLayout>
+
+            <!-- Tab Content (switched by SelectedTabIndex) -->
+            <ScrollView Grid.Row="1">
+                <VerticalStackLayout Spacing="12" Padding="0,8">
+
+                    <!-- Caller Info Tab (index=0) -->
+                    <VerticalStackLayout IsVisible="False" x:Name="CallerInfoTab" Spacing="8">
+                        <Label Text="Caller Information" Style="{StaticResource SectionHeader}" />
+                        <controls:DynamicFormRenderer 
+                            x:Name="CallerFormRenderer"
+                            FormDefinition="{Binding Definition.TabbedForms.CallerInformationTab}"
+                            FormData="{Binding CallerInfo}" />
+                    </VerticalStackLayout>
+
+                    <!-- Child Info Tab (index=1) -->
+                    <VerticalStackLayout IsVisible="False" x:Name="ChildInfoTab" Spacing="8">
+                        <Label Text="Child Information" Style="{StaticResource SectionHeader}" />
+                        <controls:DynamicFormRenderer 
+                            x:Name="ChildFormRenderer"
+                            FormDefinition="{Binding Definition.TabbedForms.ChildInformationTab}"
+                            FormData="{Binding ChildInfo}" />
+                    </VerticalStackLayout>
+
+                    <!-- Case Info Tab (index=2) -->
+                    <VerticalStackLayout IsVisible="False" x:Name="CaseInfoTab" Spacing="8">
+                        <Label Text="Case Information" Style="{StaticResource SectionHeader}" />
+                        <controls:DynamicFormRenderer 
+                            x:Name="CaseInfoFormRenderer"
+                            FormDefinition="{Binding Definition.TabbedForms.CaseInformationTab}"
+                            FormData="{Binding CaseInfo}" />
+                    </VerticalStackLayout>
+
+                    <!-- Categories Tab (index=3) -->
+                    <VerticalStackLayout IsVisible="False" x:Name="CategoriesTab" Spacing="8">
+                        <Label Text="Issue Categorization" Style="{StaticResource SectionHeader}" />
+                        <controls:CategoryGrid 
+                            x:Name="CategoryGridControl"
+                            CategoriesDefinition="{Binding Definition.TabbedForms.IssueCategorizationTab}"
+                            SelectedCategories="{Binding SelectedCategories}" />
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+
+        <!-- Action Bar -->
+        <HorizontalStackLayout Grid.Row="2" Spacing="8" Padding="0,8" HorizontalOptions="End">
+            <Button Text="Save Draft" 
+                    Command="{Binding SaveContactCommand}"
+                    Style="{StaticResource SecondaryButton}" />
+            <Button Text="Create Case"
+                    Command="{Binding CreateCaseCommand}"
+                    Style="{StaticResource SecondaryButton}" />
+            <Button Text="Submit"
+                    Command="{Binding FinalizeContactCommand}"
+                    Style="{StaticResource PrimaryButton}" />
+        </HorizontalStackLayout>
+
+        <!-- Loading Overlay -->
+        <ActivityIndicator Grid.RowSpan="3" 
+                           IsRunning="{Binding IsLoading}" 
+                           IsVisible="{Binding IsLoading}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+
+        <!-- Error display -->
+        <Label Grid.Row="2" Text="{Binding ErrorMessage}" 
+               TextColor="Red" IsVisible="{Binding ErrorMessage, Converter={StaticResource NotNullToBoolConverter}}"
+               HorizontalOptions="Start" />
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Brand Colors (LVS/Twilio) -->
+    <Color x:Key="PrimaryColor">#1976D2</Color>
+    <Color x:Key="PrimaryDarkColor">#1565C0</Color>
+    <Color x:Key="PrimaryLightColor">#BBDEFB</Color>
+    <Color x:Key="SecondaryColor">#F22F46</Color>
+    <Color x:Key="SecondaryDarkColor">#C62828</Color>
+    <Color x:Key="AccentColor">#FF6F00</Color>
+
+    <!-- Semantic Colors -->
+    <Color x:Key="SuccessColor">#4CAF50</Color>
+    <Color x:Key="WarningColor">#FF9800</Color>
+    <Color x:Key="ErrorColor">#F44336</Color>
+    <Color x:Key="InfoColor">#2196F3</Color>
+
+    <!-- Status Colors -->
+    <Color x:Key="StatusOpenColor">#4CAF50</Color>
+    <Color x:Key="StatusClosedColor">#9E9E9E</Color>
+    <Color x:Key="StatusDraftColor">#FF9800</Color>
+    <Color x:Key="StatusActiveColor">#2196F3</Color>
+
+    <!-- Neutrals -->
+    <Color x:Key="BackgroundColor">#FFFFFF</Color>
+    <Color x:Key="SurfaceColor">#F5F5F5</Color>
+    <Color x:Key="CardColor">#FFFFFF</Color>
+    <Color x:Key="DividerColor">#E0E0E0</Color>
+    <Color x:Key="TextPrimaryColor">#212121</Color>
+    <Color x:Key="TextSecondaryColor">#757575</Color>
+    <Color x:Key="TextDisabledColor">#BDBDBD</Color>
+
+    <!-- Dark Mode -->
+    <Color x:Key="DarkBackgroundColor">#121212</Color>
+    <Color x:Key="DarkSurfaceColor">#1E1E1E</Color>
+    <Color x:Key="DarkCardColor">#2C2C2C</Color>
+    <Color x:Key="DarkTextPrimaryColor">#EEEEEE</Color>
+    <Color x:Key="DarkTextSecondaryColor">#BDBDBD</Color>
+
+    <!-- Category Colors -->
+    <Color x:Key="Category1Color">#1976D2</Color>
+    <Color x:Key="Category2Color">#388E3C</Color>
+    <Color x:Key="Category3Color">#F57C00</Color>
+    <Color x:Key="Category4Color">#D32F2F</Color>
+    <Color x:Key="Category5Color">#7B1FA2</Color>
+
+    <!-- Tab Colors -->
+    <Color x:Key="TabActiveColor">#1976D2</Color>
+    <Color x:Key="TabInactiveColor">#757575</Color>
+    <Color x:Key="TabIndicatorColor">#1976D2</Color>
+
+</ResourceDictionary>

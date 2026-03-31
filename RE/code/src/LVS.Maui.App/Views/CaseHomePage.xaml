@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LVS.Maui.App.ViewModels"
+             x:Class="LVS.Maui.App.Views.CaseHomePage"
+             x:DataType="vm:CaseViewModel"
+             Title="Case Details">
+
+    <Grid RowDefinitions="Auto,Auto,*" Padding="16">
+
+        <!-- Case Header -->
+        <VerticalStackLayout Grid.Row="0" Spacing="4">
+            <Label Text="{Binding CurrentCase.Id, StringFormat='Case #{0}'}" 
+                   Style="{StaticResource Headline}" />
+            <HorizontalStackLayout Spacing="8">
+                <Label Text="{Binding CurrentCase.Status}" 
+                       Style="{StaticResource StatusBadge}" />
+                <Label Text="{Binding CurrentCase.CreatedAt, StringFormat='{0:yyyy-MM-dd}'}" 
+                       TextColor="Gray" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- Case Overview (editable) -->
+        <Border Grid.Row="1" Padding="12" Margin="0,12" StrokeShape="RoundRectangle 8">
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Case Overview" Style="{StaticResource SectionHeader}" />
+
+                <Label Text="Summary" />
+                <Editor Text="{Binding Summary}" 
+                        Placeholder="Enter case summary..."
+                        HeightRequest="100"
+                        AutoSize="TextChanges" />
+
+                <Label Text="Follow-up Date" />
+                <DatePicker Date="{Binding FollowUpDate}" />
+
+                <HorizontalStackLayout Spacing="8">
+                    <CheckBox IsChecked="{Binding ChildIsAtRisk}" />
+                    <Label Text="Child is at risk" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+
+                <Button Text="Save Overview" 
+                        Command="{Binding SaveOverviewCommand}"
+                        Style="{StaticResource PrimaryButton}"
+                        HorizontalOptions="End" />
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- Timeline -->
+        <VerticalStackLayout Grid.Row="2" Spacing="8">
+            <Label Text="Timeline" Style="{StaticResource SectionHeader}" />
+
+            <CollectionView ItemsSource="{Binding TimelineActivities}"
+                            EmptyView="No timeline activities yet.">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="12" Margin="0,4" StrokeShape="RoundRectangle 4">
+                            <HorizontalStackLayout Spacing="12">
+                                <Label Text="{Binding Timestamp, StringFormat='{0:g}'}" 
+                                       TextColor="Gray" WidthRequest="140" />
+                                <Label Text="{Binding Type}" FontAttributes="Bold" />
+                            </HorizontalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+        <!-- Loading -->
+        <ActivityIndicator Grid.RowSpan="3" 
+                           IsRunning="{Binding IsLoading}" 
+                           IsVisible="{Binding IsLoading}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+    </Grid>
+
+</ContentPage>

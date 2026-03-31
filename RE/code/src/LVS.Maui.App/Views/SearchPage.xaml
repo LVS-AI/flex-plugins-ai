@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LVS.Maui.App.ViewModels"
+             x:Class="LVS.Maui.App.Views.SearchPage"
+             x:DataType="vm:SearchViewModel"
+             Title="Search">
+
+    <Grid RowDefinitions="Auto,*" Padding="16">
+
+        <!-- Search Form -->
+        <VerticalStackLayout Grid.Row="0" Spacing="8" Padding="0,0,0,12">
+            <Label Text="Search Contacts &amp; Cases" Style="{StaticResource Headline}" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="8" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="8">
+                <Entry Grid.Row="0" Grid.Column="0" 
+                       Placeholder="First Name" Text="{Binding FirstName}" />
+                <Entry Grid.Row="0" Grid.Column="1" 
+                       Placeholder="Last Name" Text="{Binding LastName}" />
+                <Entry Grid.Row="1" Grid.Column="0" 
+                       Placeholder="Phone Number" Text="{Binding PhoneNumber}" Keyboard="Telephone" />
+                <Entry Grid.Row="1" Grid.Column="1" 
+                       Placeholder="Counselor" Text="{Binding Counselor}" />
+                <Entry Grid.Row="2" Grid.Column="0" 
+                       Placeholder="Date From (YYYY-MM-DD)" Text="{Binding DateFrom}" />
+                <Entry Grid.Row="2" Grid.Column="1" 
+                       Placeholder="Date To (YYYY-MM-DD)" Text="{Binding DateTo}" />
+                <Entry Grid.Row="3" Grid.Column="0" 
+                       Placeholder="Contact Number" Text="{Binding ContactNumber}" />
+                <HorizontalStackLayout Grid.Row="3" Grid.Column="1" Spacing="8">
+                    <CheckBox IsChecked="{Binding OnlyDataContacts}" />
+                    <Label Text="Data contacts only" VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Grid>
+
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="End">
+                <Button Text="Clear" Command="{Binding ClearSearchCommand}" Style="{StaticResource SecondaryButton}" />
+                <Button Text="Search" Command="{Binding SearchCommand}" Style="{StaticResource PrimaryButton}" />
+            </HorizontalStackLayout>
+
+            <!-- Result type toggle -->
+            <HorizontalStackLayout Spacing="12">
+                <Button Text="{Binding ContactResultCount, StringFormat='Contacts ({0})'}" 
+                        Clicked="OnShowContactsClicked" />
+                <Button Text="{Binding CaseResultCount, StringFormat='Cases ({0})'}" 
+                        Clicked="OnShowCasesClicked" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <!-- Results -->
+        <Grid Grid.Row="1">
+            <!-- Contact Results -->
+            <CollectionView ItemsSource="{Binding ContactResults}" 
+                            IsVisible="{Binding ShowContactResults}"
+                            EmptyView="No contacts found.">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="12" Margin="0,4" StrokeShape="RoundRectangle 4">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding Id, StringFormat='Contact #{0}'}" FontAttributes="Bold" />
+                                <Label Text="{Binding Channel}" TextColor="Gray" />
+                                <Label Text="{Binding CreatedAt, StringFormat='{0:g}'}" TextColor="Gray" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Case Results -->
+            <CollectionView ItemsSource="{Binding CaseResults}"
+                            IsVisible="{Binding ShowContactResults, Converter={StaticResource InvertBoolConverter}}"
+                            EmptyView="No cases found.">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="12" Margin="0,4" StrokeShape="RoundRectangle 4">
+                            <VerticalStackLayout Spacing="4">
+                                <Label Text="{Binding Id, StringFormat='Case #{0}'}" FontAttributes="Bold" />
+                                <Label Text="{Binding Status}" />
+                                <Label Text="{Binding CreatedAt, StringFormat='{0:g}'}" TextColor="Gray" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <!-- Loading -->
+        <ActivityIndicator Grid.RowSpan="2" 
+                           IsRunning="{Binding IsSearchingContacts}" 
+                           IsVisible="{Binding IsSearchingContacts}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+    </Grid>
+
+</ContentPage>

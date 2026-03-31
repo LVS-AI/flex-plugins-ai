@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LVS.Maui.App.ViewModels"
+             x:Class="LVS.Maui.App.Views.TeamsViewPage"
+             x:DataType="vm:TeamsViewModel"
+             Title="Teams">
+
+    <Grid RowDefinitions="Auto,*" Padding="16">
+
+        <!-- Filters -->
+        <HorizontalStackLayout Grid.Row="0" Spacing="8" Padding="0,0,0,8">
+            <Entry Placeholder="Filter by skill" Text="{Binding SkillFilter}" WidthRequest="150" />
+            <Entry Placeholder="Filter by status" Text="{Binding StatusFilter}" WidthRequest="150" />
+            <Button Text="Refresh" Command="{Binding LoadAgentsCommand}" Style="{StaticResource PrimaryButton}" />
+        </HorizontalStackLayout>
+
+        <!-- Agents List -->
+        <CollectionView Grid.Row="1"
+                         ItemsSource="{Binding Agents}"
+                         EmptyView="No agents found.">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:AgentInfo">
+                    <Border Padding="12" Margin="0,4" StrokeShape="RoundRectangle 4">
+                        <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="12">
+                            <Label Grid.Column="0" Text="{Binding FullName}" FontAttributes="Bold" />
+                            <Label Grid.Column="1" Text="{Binding Status}" />
+                            <Label Grid.Column="2" Text="{Binding ActiveTasks, StringFormat='{0} tasks'}" />
+                            <Label Grid.Column="3" Text="{Binding Skills, StringFormat='{0}'}" TextColor="Gray" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Loading -->
+        <ActivityIndicator Grid.RowSpan="2" 
+                           IsRunning="{Binding IsLoading}" 
+                           IsVisible="{Binding IsLoading}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+    </Grid>
+
+</ContentPage>
