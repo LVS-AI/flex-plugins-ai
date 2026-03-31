@@ -17,7 +17,7 @@ public class CSAMReportEntry
     public bool Acknowledged { get; set; }
 
     [JsonPropertyName("contactId")]
-    public int? ContactId { get; set; }
+    public string? ContactId { get; set; }
 
     [JsonPropertyName("createdAt")]
     public DateTime CreatedAt { get; set; }

@@ -58,6 +58,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<IdentifierMaskingService>();
 
         // ViewModels
+        builder.Services.AddTransient<ViewModels.LoginViewModel>();
         builder.Services.AddTransient<ViewModels.ContactFormViewModel>();
         builder.Services.AddTransient<ViewModels.CaseViewModel>();
         builder.Services.AddTransient<ViewModels.CaseListViewModel>();
@@ -67,6 +68,7 @@ public static class MauiProgram
         builder.Services.AddTransient<ViewModels.SettingsViewModel>();
 
         // Pages
+        builder.Services.AddTransient<Views.LoginPage>();
         builder.Services.AddTransient<Views.ContactFormPage>();
         builder.Services.AddTransient<Views.CaseHomePage>();
         builder.Services.AddTransient<Views.CaseListPage>();

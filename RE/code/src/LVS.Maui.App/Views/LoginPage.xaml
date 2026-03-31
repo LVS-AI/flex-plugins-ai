@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LVS.Maui.App.ViewModels"
+             x:Class="LVS.Maui.App.Views.LoginPage"
+             x:DataType="vm:LoginViewModel"
+             Title="Login"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="*,Auto,*" Padding="32">
+
+        <!-- Header -->
+        <VerticalStackLayout Grid.Row="0" VerticalOptions="End" Spacing="8" Padding="0,0,0,24">
+            <Label Text="LVS Care Full Chat"
+                   Style="{StaticResource Headline}"
+                   HorizontalOptions="Center" />
+            <Label Text="Sign in to continue"
+                   Style="{StaticResource Caption}"
+                   HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <!-- Login Form -->
+        <VerticalStackLayout Grid.Row="1" Spacing="16" MaximumWidthRequest="400" HorizontalOptions="Center">
+
+            <Entry Placeholder="Auth Token"
+                   Text="{Binding Token}"
+                   IsPassword="True"
+                   ReturnType="Done" />
+
+            <Button Text="Sign In"
+                    Command="{Binding LoginCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    HorizontalOptions="Fill" />
+
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource NotNullToBoolConverter}}"
+                   HorizontalOptions="Center" />
+
+            <!-- Loading -->
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}"
+                               HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <!-- Footer -->
+        <Label Grid.Row="2"
+               Text="Built with .NET MAUI 10"
+               Style="{StaticResource Caption}"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               Padding="0,0,0,16" />
+    </Grid>
+
+</ContentPage>

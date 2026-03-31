@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:LVS.Maui.App.ViewModels"
+             xmlns:models="clr-namespace:LVS.Core.Models;assembly=LVS.Core"
              x:Class="LVS.Maui.App.Views.ProfilePage"
              x:DataType="vm:ProfileViewModel"
              Title="Profiles">
@@ -18,8 +19,11 @@
                 <CollectionView ItemsSource="{Binding ProfilesList}"
                                 EmptyView="No profiles found.">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:Profile">
                             <Border Padding="12" Margin="0,4" StrokeShape="RoundRectangle 4">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnProfileSelected" CommandParameter="{Binding Id}" />
+                                </Border.GestureRecognizers>
                                 <VerticalStackLayout Spacing="4">
                                     <Label Text="{Binding Name}" FontAttributes="Bold" />
                                     <Label Text="{Binding Id, StringFormat='Profile #{0}'}" TextColor="Gray" />
@@ -45,7 +49,7 @@
                     <CollectionView ItemsSource="{Binding CurrentProfile.Identifiers}" 
                                     ItemsLayout="HorizontalList">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="models:Identifier">
                                 <Border Padding="4,2" Margin="2" StrokeShape="RoundRectangle 4" BackgroundColor="LightGray">
                                     <Label Text="{Binding IdentifierValue}" FontSize="12" />
                                 </Border>
@@ -60,7 +64,7 @@
                     <CollectionView ItemsSource="{Binding CurrentProfile.ProfileFlags}"
                                     ItemsLayout="HorizontalList">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="models:ProfileFlagAssociation">
                                 <Border Padding="4,2" Margin="2" StrokeShape="RoundRectangle 4" BackgroundColor="Orange">
                                     <Label Text="{Binding Name}" FontSize="12" TextColor="White" />
                                 </Border>
@@ -82,7 +86,7 @@
                                 IsVisible="True"
                                 EmptyView="No contacts linked.">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:Contact">
                             <Border Padding="8" Margin="0,2" StrokeShape="RoundRectangle 4">
                                 <Label Text="{Binding Id, StringFormat='Contact #{0}'}" />
                             </Border>
@@ -96,7 +100,7 @@
                                 IsVisible="False"
                                 EmptyView="No cases linked.">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:Case">
                             <Border Padding="8" Margin="0,2" StrokeShape="RoundRectangle 4">
                                 <Label Text="{Binding Id, StringFormat='Case #{0}'}" />
                             </Border>
@@ -108,7 +112,7 @@
                 <VerticalStackLayout x:Name="ProfileDetailsList" IsVisible="False" Spacing="8">
                     <CollectionView ItemsSource="{Binding CurrentProfile.ProfileSections}">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="models:ProfileSection">
                                 <Border Padding="8" Margin="0,2" StrokeShape="RoundRectangle 4">
                                     <VerticalStackLayout>
                                         <Label Text="{Binding SectionType}" FontAttributes="Bold" />

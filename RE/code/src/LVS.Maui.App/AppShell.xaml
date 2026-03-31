@@ -6,6 +6,9 @@
        Title="LVS Care Full Chat"
        Shell.FlyoutBehavior="Flyout">
 
+    <!-- Login (not in flyout) -->
+    <ShellContent ContentTemplate="{DataTemplate views:LoginPage}" Route="Login" FlyoutItemIsVisible="False" />
+
     <!-- Contact Form (Active Task) -->
     <FlyoutItem Title="Contact" Icon="{x:Null}">
         <ShellContent ContentTemplate="{DataTemplate views:ContactFormPage}" Route="ContactForm" />

@@ -11,10 +11,3 @@ public interface IResourceService
         int limit = 20);
     Task<ReferrableResource> GetResourceAsync(string resourceId);
 }
-
-public class ReferrableResource
-{
-    public string Id { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-    public Dictionary<string, object?> Attributes { get; set; } = new();
-}

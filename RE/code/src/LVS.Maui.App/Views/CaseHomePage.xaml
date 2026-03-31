@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=System.Runtime"
              xmlns:vm="clr-namespace:LVS.Maui.App.ViewModels"
+             xmlns:models="clr-namespace:LVS.Core.Models;assembly=LVS.Core"
              x:Class="LVS.Maui.App.Views.CaseHomePage"
              x:DataType="vm:CaseViewModel"
              Title="Case Details">
@@ -13,7 +15,7 @@
             <Label Text="{Binding CurrentCase.Id, StringFormat='Case #{0}'}" 
                    Style="{StaticResource Headline}" />
             <HorizontalStackLayout Spacing="8">
-                <Border Style="{StaticResource StatusBadge}">
+                <Border Style="{StaticResource StatusBadge}" BackgroundColor="{StaticResource StatusActiveColor}">
                     <Label Text="{Binding CurrentCase.Status}" TextColor="White" FontSize="12" />
                 </Border>
                 <Label Text="{Binding CurrentCase.CreatedAt, StringFormat='{0:yyyy-MM-dd}'}" 
@@ -33,7 +35,7 @@
                         AutoSize="TextChanges" />
 
                 <Label Text="Follow-up Date" />
-                <DatePicker Date="{Binding FollowUpDate}" />
+                <DatePicker Date="{Binding FollowUpDate, FallbackValue={x:Static sys:DateTime.Today}, TargetNullValue={x:Static sys:DateTime.Today}}" />
 
                 <HorizontalStackLayout Spacing="8">
                     <CheckBox IsChecked="{Binding ChildIsAtRisk}" />
@@ -54,7 +56,7 @@
             <CollectionView ItemsSource="{Binding TimelineActivities}"
                             EmptyView="No timeline activities yet.">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:TimelineActivity">
                         <Border Padding="12" Margin="0,4" StrokeShape="RoundRectangle 4">
                             <HorizontalStackLayout Spacing="12">
                                 <Label Text="{Binding Timestamp, StringFormat='{0:g}'}" 

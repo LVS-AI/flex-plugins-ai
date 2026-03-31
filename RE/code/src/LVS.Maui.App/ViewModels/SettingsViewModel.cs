@@ -18,6 +18,11 @@ public partial class SettingsViewModel : ObservableObject
 
     public IReadOnlyList<string> AvailableLocales => _localization.AvailableLocales;
 
+    partial void OnSelectedLocaleChanged(string value)
+    {
+        _ = _localization.SetLocaleAsync(value);
+    }
+
     [RelayCommand]
     private async Task ChangeLanguageAsync(string locale)
     {

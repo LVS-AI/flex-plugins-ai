@@ -24,6 +24,8 @@ public class FormDefinitionService : IFormDefinitionService
             $"form-definitions/{Uri.EscapeDataString(helplineCode)}/{Uri.EscapeDataString(version)}")
             ?? throw new InvalidOperationException($"Failed to load definition version: {cacheKey}");
 
+        definition.Version ??= version;
+
         _cache.TryAdd(cacheKey, definition);
         return definition;
     }

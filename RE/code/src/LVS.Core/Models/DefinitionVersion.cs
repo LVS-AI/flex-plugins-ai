@@ -4,6 +4,9 @@ namespace LVS.Core.Models;
 
 public class DefinitionVersion
 {
+    [JsonPropertyName("version")]
+    public string? Version { get; set; }
+
     [JsonPropertyName("caseStatus")]
     public Dictionary<string, StatusInfo> CaseStatus { get; set; } = new();
 

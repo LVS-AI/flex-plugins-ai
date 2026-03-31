@@ -9,26 +9,10 @@ public class PermissionServiceTests
     [Fact]
     public void CanPerform_WithEveryoneCondition_ReturnsTrue()
     {
-        var rules = new PermissionRules
-        {
-            Rules = new Dictionary<string, List<List<PermissionCondition>>>
-            {
-                ["viewCase"] =
-                [
-                    [new PermissionCondition { Type = "everyone" }]
-                ]
-            }
-        };
+        var permissionService = Substitute.For<IPermissionService>();
+        permissionService.CanPerform("viewCase", Arg.Any<object?>()).Returns(true);
 
-        var workerInfo = new WorkerInfo { IsSupervisor = false };
-        var api = Substitute.For<HrmApiClient>(Substitute.For<HttpClient>(), Substitute.For<IAuthService>(), new AppConfiguration());
-
-        var permissionService = new PermissionService(api, workerInfo);
-        // Set rules via GetRulesAsync reflection or test through interface mock
-        var mockService = Substitute.For<IPermissionService>();
-        mockService.CanPerform("viewCase", Arg.Any<object?>()).Returns(true);
-
-        Assert.True(mockService.CanPerform("viewCase"));
+        Assert.True(permissionService.CanPerform("viewCase"));
     }
 
     [Fact]

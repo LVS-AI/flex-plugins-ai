@@ -25,6 +25,15 @@ public partial class ProfilePage : ContentPage
             vm.CurrentProfile = null;
     }
 
+    private async void OnProfileSelected(object? sender, TappedEventArgs e)
+    {
+        if (e.Parameter is int profileId && BindingContext is ProfileViewModel vm)
+        {
+            await vm.LoadProfileCommand.ExecuteAsync(profileId);
+            await vm.LoadProfileContactsCommand.ExecuteAsync(profileId);
+        }
+    }
+
     private void OnProfileContactsClicked(object? sender, EventArgs e)
     {
         ProfileContactsList.IsVisible = true;

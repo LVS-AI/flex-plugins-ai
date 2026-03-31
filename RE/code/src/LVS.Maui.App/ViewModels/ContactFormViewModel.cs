@@ -97,7 +97,7 @@ public partial class ContactFormViewModel : ObservableObject
                 ChildInformation = ChildInfo,
                 CaseInformation = CaseInfo,
                 Categories = SelectedCategories,
-                DefinitionVersion = Definition?.CaseStatus.Keys.FirstOrDefault()
+                DefinitionVersion = Definition?.Version
             };
 
             if (string.IsNullOrEmpty(Contact.Id))

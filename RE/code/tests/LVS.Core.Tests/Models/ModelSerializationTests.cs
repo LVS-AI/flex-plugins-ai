@@ -48,8 +48,8 @@ public class ModelSerializationTests
     {
         var flags = new FeatureFlags();
 
-        Assert.False(flags.EnableCaseManagement);
-        Assert.False(flags.EnableExternalRecordings);
+        Assert.False(flags.EnableCsamReport);
+        Assert.False(flags.EnableVoiceRecordings);
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class ModelSerializationTests
         var s3Media = new S3StoredMedia
         {
             StoreType = "S3",
-            StoreTypeSpecificData = new S3Location { Bucket = "test-bucket", Key = "test-key" }
+            Location = new S3Location { Bucket = "test-bucket", Key = "test-key" }
         };
 
         var json = JsonSerializer.Serialize<ConversationMedia>(s3Media);

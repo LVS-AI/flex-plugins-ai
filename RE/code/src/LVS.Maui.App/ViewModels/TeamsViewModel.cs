@@ -36,4 +36,5 @@ public class AgentInfo
     public string Status { get; set; } = string.Empty;
     public List<string> Skills { get; set; } = [];
     public int ActiveTasks { get; set; }
+    public string SkillsSummary => Skills.Count > 0 ? string.Join(", ", Skills) : "None";
 }
